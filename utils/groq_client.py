@@ -4,8 +4,17 @@ import streamlit as st
 
 def get_groq_client():
     """Initialize Groq client using API key from Streamlit secrets or env."""
-    api_key = st.secrets.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+def get_groq_client():
+    """Initialize Groq client using API key from Streamlit secrets or env."""
+    try:
+        api_key = st.secrets["GROQ_API_KEY"]
+    except (KeyError, FileNotFoundError):
+        api_key = os.environ.get("GROQ_API_KEY")
+
     if not api_key:
+        st.error("❌ GROQ_API_KEY not found. Add it to Streamlit secrets or set as env variable.")
+        st.stop()
+    return Groq(api_key=api_key)    if not api_key:
         st.error("❌ GROQ_API_KEY not found. Add it to Streamlit secrets or set as env variable.")
         st.stop()
     return Groq(api_key=api_key)
