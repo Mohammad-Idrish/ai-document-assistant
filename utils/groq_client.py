@@ -15,8 +15,8 @@ def get_groq_client():
 
 def ask_question(question: str, context: str) -> str:
     client = get_groq_client()
-    system_prompt = "You are an expert document analyst. Answer questions based ONLY on the provided document context. If the answer is not in the context, say 'This information is not available in the document.'"
-    user_prompt = f"Context from document:\n{context}\n\nQuestion: {question}\n\nAnswer:"
+    system_prompt = "You are an expert document analyst. Answer questions based ONLY on the provided document context. If the answer is not in the context, say this information is not available in the document."
+    user_prompt = "Context from document:\n" + context + "\n\nQuestion: " + question + "\n\nAnswer:"
     response = client.chat.completions.create(
         model="llama3-8b-8192",
         messages=[
@@ -37,9 +37,9 @@ def summarize_text(text: str, summary_type: str) -> str:
         "Executive (business format)": "Write an executive summary with sections: Overview, Key Findings, and Recommendations.",
     }
     instruction = type_instructions.get(summary_type, type_instructions["Brief (2-3 sentences)"])
-# Trim text to max 1500 words to avoid token limit
-text = " ".join(text.split()[:1500])
-user_prompt = f"Summarize the following document text.\n\n{instruction}\n\nDocument text:\n{text}\n\nSummary:"    response = client.chat.completions.create(
+    text = " ".join(text.split()[:1500])
+    user_prompt = "Summarize the following document text.\n\n" + instruction + "\n\nDocument text:\n" + text + "\n\nSummary:"
+    response = client.chat.completions.create(
         model="llama3-8b-8192",
         messages=[
             {"role": "system", "content": "You are an expert document summarizer. Be clear, accurate and concise."},
