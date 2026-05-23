@@ -19,7 +19,7 @@
 - **Chunk Explorer** — Inspect how the document was split and indexed
 
 ---
-
+🔗 Live Demo: https://ai-document-assistant-qzqmpgjhwmjwwmvxsdeh7s.streamlit.app
 ## 🏗️ Architecture
 
 ```
