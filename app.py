@@ -399,8 +399,8 @@ else:
             if st.button("✨ Generate Summary", use_container_width=True):
                 with st.spinner("Summarizing document..."):
                     # Use first ~3000 words to stay within token limits
-                    text_snippet = " ".join(st.session_state.full_text.split()[:3000])
-                    st.session_state.summary = summarize_text(text_snippet, summary_type)
+text_snippet = " ".join(st.session_state.full_text.split()[:1500])
+st.session_state.summary = summarize_text(text_snippet, summary_type)
 
         if st.session_state.summary:
             st.markdown(f"""
